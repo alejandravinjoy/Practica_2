@@ -2,7 +2,10 @@
 title: "Practica 2 AED"
 author: "Proyecto AED"
 date: "2026-10-26"
-output: html_document
+output:
+  pdf_document:
+    latex_engine: xelatex
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
