@@ -94,7 +94,13 @@ La información se observar mejor cuando incluimos la variable RainToday con col
 Añade títulos explicativos al gráfico anterior (debe aparece un título, subtítulo, leyendas e información de las variables representadas en los ejes).
 
 ```{r}
-grafico5<-grafico5+ggtitle('Pressure and Temperature at 9 am by RainToday')+xlab('Pressure at 9 am')+ylab('Temperature at 9 am')
+grafico5<-grafico5+
+  labs(title = "Pressure and Temperature at 9 am",
+       subtitle = "by Rain Today",
+       x = "Pressure at 9 am",
+       y = "Temperature at 9 am",
+       caption = " ")
+
 grafico5
 ```
 
@@ -121,16 +127,15 @@ str(iris.tidy)
 
 Respuesta:
 
-La variable contiene 4 variables:
+El dataframe contiene 4 variables:
 
--    'Species' de tipo factor
+-   'Species' de tipo factor
 
--    'Part' de tipo factor
+-   'Part' de tipo factor
 
 -   'Measure' de tipo character
 
--    'Value' de tipo numeric
-
+-   'Value' de tipo numeric
 
 Crea un objeto ggplot denominado iris.grafico1 en el que esté definido el conjunto de datos iris.tidy alojado en el fichero iris.tidy.RData y un aesthetics en el que en el eje 𝑥esté definida la variable Species y en el eje 𝑦esté definida la variable Value.
 
@@ -147,9 +152,105 @@ iris.grafico1
 ```
 
 Modifica el aesthetics de iris.grafico1 para visualizar la variable categórica Part y almacénalo en iris.grafico2. A partir del objeto iris.grafico2, representa un gráfico de dispersión en el que se muestren los puntos dados por las variables Species y Value, y el color del punto se corresponda con el valor de la variable Part.
+
 ```{r}
 iris.grafico2<-iris.grafico1+aes(color=Part)
 iris.grafico2
 ```
 
+Incluye información de la variable Measure haciendo dos gráficos de dispersión (dispuestos en filas) con facet_grid(), como en el apartado de introducción, para los dos valores que toma la variable Measure. Prueba a cambiar la disposición de los gráficos para que sea en columnas ¿Qué disposición, en filas o en columnas, permite comparar mejor los valores de las dos variables?
 
+```{r}
+#filas
+iris.grafico3<-iris.grafico2 + facet_grid(Measure~. )
+iris.grafico3
+```
+
+```{r}
+#columnas
+iris.grafico3<-iris.grafico2 + facet_grid(.~Measure)
+iris.grafico3
+```
+
+Respuesta:
+
+La disposición en columnas es mejor para comparar las dos medidas.
+
+Cambia ahora la capa geom_point() del gráfico anterior por la capa geom_jitter(). ¿Qué diferencia observas?
+
+```{r}
+iris.grafico3<-iris.grafico3+geom_jitter()
+iris.grafico3
+```
+
+Respuesta:
+
+El comando geom_jitter() desplaza los puntos, haciendo más visibles las observaciones superpuestas.
+
+Almacena en formato pdf el gráfico resultante en un fichero denominado Ejercicio3.pdf.
+
+```{r}
+ggsave('./results/Ejercicio3.pdf')
+```
+
+# Gráficos de línea con **ggplot2**
+
+## Ejercicio 4
+
+Carga el fichero Ejercicio4_Data.Rdata. Examina las variables que tiene dicho dataset.
+
+```{r}
+load('data/Ejercicio4_Data.Rdata')
+
+#Examinamos variables
+str(DatosEjer4)
+```
+
+Respuesta:
+
+El dataframe contiene 3 variables:
+
+-   'Fecha' de tipo date
+
+-   'Fabricante' de tipo factor
+
+-   'Ventas' de tipo numeric
+
+
+Representa un gráfico de puntos, en el que se muestre la fecha en el eje 𝑥
+ y las ventas en el eje 𝑦
+. Queremos que los datos de cada fabricante sean de un color distinto. ¿Es este gráfico válido para evaluar la evolución de las ventas de cada fabricante?
+
+```{r}
+grafico6<-ggplot(data=DatosEjer4, aes(x=Fecha, y=Ventas,color=Fabricante)) +
+  geom_point()
+grafico6
+```
+
+Este gráfico no es del todo válido para evaluar la evolución de ventas de cada fabricante. El gráfico permite comparar las ventas de los fabricantes en distintas fechas, pero los puntos por sí solos no muestran claramente la evolución.
+
+
+Representa un gráfico como el anterior en el que se muestre la línea que une los puntos que antes has representado.
+```{r}
+grafico7<-grafico6+geom_line()
+grafico7
+```
+
+Modifica el gráfico anterior para que la tendencia de cada fabricante este trazada con un tipo de línea diferente.
+```{r}
+grafico7<-grafico7+aes(linetype = Fabricante)
+grafico7
+```
+
+Añade el siguiente título al gráfico “Ventas mensuales de diferentes compañías tecnológicas”.
+```{r}
+grafico7<-grafico7+labs(title = 'Ventas mensuales de diferentes compañías tecnológicas')
+grafico7
+```
+
+
+Almacena en formato pdf el gráfico resultante en un fichero denominado Ejercicio4.pdf.
+
+```{r}
+ggsave('./results/Ejercicio4.pdf')
+```
