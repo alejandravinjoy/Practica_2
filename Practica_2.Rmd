@@ -412,6 +412,7 @@ Descarga de la url “http://assets.datacamp.com/blog_assets/chol.txt” el data
 ```{r}
 URL<-'http://assets.datacamp.com/blog_assets/chol.txt'
 Datacamp<-read.table(URL,header=TRUE)
+str(Datacamp)
 ```
 
 
@@ -420,31 +421,54 @@ Añade título (“Histograma de la variable Altura”), una etiqueta en el eje 
  (“Altura (cm)”) y una etiqueta en el eje 𝑦
  (“Frecuencia”).
 ```{r}
+Datacamp.grafico1<-ggplot(Datacamp, aes(x=HEIGHT)) + geom_histogram()+
+  labs(title="Histograma de la variable Altura", x="Altura (cm)", y="Frecuencia"
+  )
 
+Datacamp.grafico1
 ```
  
  
 Ajusta el rango de representación entre 155 y 195, además fuerza que el histograma tenga 20 bins.(usa parámetro breaks)
 ```{r}
-
+Datacamp.grafico1<-Datacamp.grafico1+
+  geom_histogram(
+    breaks = seq(155, 195, by=2))
+Datacamp.grafico1
 ```
 
 
 Haz que las barras del histograma sean de color azul con una grado de transparencia del 50% y el contorno de color rojo.
 ```{r}
-
+Datacamp.grafico2<-ggplot(Datacamp, aes(x = HEIGHT)) +
+  geom_histogram(
+    breaks = seq(155, 195, by=2),
+    fill = "blue",
+    alpha = 0.5,
+    color = "red"
+  )  
+  
+Datacamp.grafico2
 ```
 
 
 Añade la curva de distribución estimada de color verde.
 ```{r}
-
+Datacamp.grafico3<-ggplot(Datacamp, aes(x = HEIGHT))+
+  geom_histogram(aes(y=after_stat(density)),breaks = seq(155, 195, by=2),
+    fill = "blue",
+    alpha = 0.5,
+    color = "red")+
+  geom_density(col="green")
+Datacamp.grafico3
 ```
 
 
 Representa el mismo histograma del apartado anterior para cada valor de la variable MORT, recuerda utilizar la función facet_grid().
 ```{r}
-
+Datacamp.grafico4 <- Datacamp.grafico3 +
+  facet_grid(.~MORT)
+Datacamp.grafico4
 ```
 
 
