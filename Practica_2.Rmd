@@ -15,3 +15,59 @@ packages =  c("tidyverse", "knitr", "ggplot2", "datasets", "RColorBrewer",'latex
 pacman::p_load(char=packages)
 ```
 
+# Gráficos de dispersión con **ggplot2**
+
+## Ejercicio 1
+Cargamos el fichero
+```{r}
+#Carga fichero weatherAUS.RData
+load("data/weatherAUS.RData")
+```
+
+Crea un objeto ggplot denominado grafico1 en el que esté definido el conjunto de datos ds alojado en el fichero weatherAUS.RData y un aesthetics en el que en el eje 𝑥esté definida la variable MinTemp y en el eje 𝑦 esté definida la variable MaxTemp.
+```{r}
+library(ggplot2)
+grafico1<-ggplot(data = ds, aes(x = MinTemp, y = MaxTemp))
+grafico1
+```
+
+Añade una capa que defina el objeto geométrico necesario para construir un gráfico de dispersión de las variables MinTemp y MaxTemp.
+```{r}
+grafico1<-grafico1+geom_point()
+grafico1
+```
+
+Genera ahora el mismo gráfico y almacénalo en grafico2 pero define el aesthetics para visualizar las variables MinTemp y MaxTemp en los ejes de la gráfica y la variable categórica RainTomorrow como el color. A partir del objeto grafico2, representa un gráfico de dispersión en el que se muestren los puntos con el color del punto correspondiente a la variable RainTomorrow.
+```{r}
+grafico2<-ggplot(data = ds,
+                 aes(x = MinTemp,y = MaxTemp,
+                     color = RainTomorrow))
+grafico2+geom_point()
+```
+
+Añade a grafico2 una capa para incluir un título con ggtitle() y almacénalo en grafico3
+```{r}
+grafico3<-grafico2+geom_point()+ggtitle('Temperatura máxima y mínima según RainTomorrow')
+grafico3
+```
+
+Almacena en formato pdf el gráfico resultante en un fichero denominado Ejercicio1.pdf.
+```{r}
+ggsave('./results/Ejercicio1.pdf',width=5,height=5)
+
+```
+
+## Ejercicio 2
+Utilizando ggplot haz un grafico de dispersión en el que representes las variables Temp9am y Pressure9am en los ejes 𝑥e 𝑦respectivamente.
+```{r}
+grafico4<-ggplot(data = ds, aes(x = Temp9am, y = Pressure9am))+geom_point()
+grafico4
+```
+Modifica el gráfico anterior para incluir información categórica proporcionada por la variable RainToday con la forma del punto.
+```{r}
+grafico4<-ggplot(data = ds, aes(x = Temp9am, y = Pressure9am,shape=RainToday))+geom_point()
+grafico4
+```
+
+
+## Ejercicio 3
