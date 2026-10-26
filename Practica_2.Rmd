@@ -1,0 +1,17 @@
+---
+title: "Practica 2 AED"
+author: "Proyecto AED"
+date: "2026-10-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(pacman)
+packages =  c("tidyverse", "knitr", "ggplot2", "datasets", "RColorBrewer",'latex2exp')
+pacman::p_load(char=packages)
+```
+
