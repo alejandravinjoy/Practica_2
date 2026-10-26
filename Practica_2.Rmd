@@ -92,14 +92,64 @@ Respuesta:
 La información se observar mejor cuando incluimos la variable RainToday con color.
 
 Añade títulos explicativos al gráfico anterior (debe aparece un título, subtítulo, leyendas e información de las variables representadas en los ejes).
+
 ```{r}
 grafico5<-grafico5+ggtitle('Pressure and Temperature at 9 am by RainToday')+xlab('Pressure at 9 am')+ylab('Temperature at 9 am')
 grafico5
 ```
+
 Almacena en formato pdf el gráfico resultante en un fichero denominado Ejercicio2.pdf.
+
 ```{r}
 ggsave('./results/Ejercicio2.pdf')
 
 ```
 
 ## Ejercicio 3
+
+Carga el fichero iris.tidy.Rdata utilizando lo aprendido en la práctica 1.
+
+```{r}
+load("data/iris_tidy.Rdata")
+```
+
+Utiliza la función str() para ver qué variables contiene el dataset.
+
+```{r}
+str(iris.tidy)
+```
+
+Respuesta:
+
+La variable contiene 4 variables:
+
+-    'Species' de tipo factor
+
+-    'Part' de tipo factor
+
+-   'Measure' de tipo character
+
+-    'Value' de tipo numeric
+
+
+Crea un objeto ggplot denominado iris.grafico1 en el que esté definido el conjunto de datos iris.tidy alojado en el fichero iris.tidy.RData y un aesthetics en el que en el eje 𝑥esté definida la variable Species y en el eje 𝑦esté definida la variable Value.
+
+```{r}
+iris.grafico1<-ggplot(data = iris.tidy, aes(x = Species, y = Value))
+iris.grafico1
+```
+
+Añade una capa que defina el objeto geométrico necesario para construir un gráfico de dispersión de las variables Species y Value.
+
+```{r}
+iris.grafico1<-iris.grafico1+geom_point()
+iris.grafico1
+```
+
+Modifica el aesthetics de iris.grafico1 para visualizar la variable categórica Part y almacénalo en iris.grafico2. A partir del objeto iris.grafico2, representa un gráfico de dispersión en el que se muestren los puntos dados por las variables Species y Value, y el color del punto se corresponda con el valor de la variable Part.
+```{r}
+iris.grafico2<-iris.grafico1+aes(color=Part)
+iris.grafico2
+```
+
+
