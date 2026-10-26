@@ -307,7 +307,7 @@ Experimento.grafico3<-ggplot(Experimento,aes(x=Dosis,y=Altura,group=Complemento,
 
 Experimento.grafico3
 ```
-
+Con los colores se puede observar mejor el error, ya que con las líneas se puede superponer y no se distingue.
 
 Almacena en formato pdf el gráfico resultante en un fichero denominado Ejercicio5.pdf.
 ```{r}
@@ -316,3 +316,34 @@ ggsave('./results/Ejercicio5.pdf')
 
 
 ## Ejercicio 6
+El fichero iceRiver.RData contiene información del caudal de dos ríos islandeses medidos a diarios durante 3 años. Puedes obtener información detallada de las variables usando > ?tseries::ice.river
+
+Representa el caudal de ambos ríos a lo largo del período considerado coloreando una serie (flow.vat) en color rojo y la otra en color azul.
+
+```{r}
+load('data/iceRiver.RData')
+str(ice.river.df)
+```
+
+
+```{r}
+ice.river.grafico1<-ggplot(ice.river.df)+
+  geom_line(aes(x = temp, y = flow.vat),color = "red")+
+  geom_line(aes(x = temp, y = flow.jok),color = "blue")
+
+ice.river.grafico1
+```
+
+Utiliza la función labs para enriquecer el gráfico.
+```{r}
+ice.river.grafico1<-ice.river.grafico1+
+  labs(title="Caudal de los ríos vat y flow a lo largo del tiempo",
+       x="Temperatura", 
+       y = "Caudal")
+```
+
+Almacena en formato pdf el gráfico resultante en un fichero denominado Ejercicio5.pdf.
+```{r}
+ggsave('./results/Ejercicio6.pdf')
+```
+
